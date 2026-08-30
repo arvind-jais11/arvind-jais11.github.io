@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Arvind Kumar — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper:#F5F4EC;
+    --card:#FFFDF8;
+    --ink:#2C2A26;
+    --muted:#8A8477;
+    --rule:#D8574C;
+    --highlighter:#FFD966;
+    --sage:#6E9080;
+    --blue:#3D5A80;
+    --line:#E4E0D3;
+    --display:'Space Grotesk', sans-serif;
+    --hand:'Caveat', cursive;
+    --sans:'Inter', sans-serif;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{ scroll-behavior:smooth; }
+  body{
+    background:
+      radial-gradient(circle, #00000009 1px, transparent 1px) 0 0/22px 22px,
+      var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.65;
+    -webkit-font-smoothing:antialiased;
+  }
+  ::selection{ background:var(--highlighter); color:var(--ink); }
+  a{ color:var(--blue); }
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--blue); outline-offset:3px; }
+  img{ max-width:100%; display:block; }
+
+  .binder{
+    position:fixed; top:0; left:0; bottom:0; width:34px;
+    display:flex; flex-direction:column; align-items:center;
+    justify-content:space-evenly;
+    z-index:60; pointer-events:none;
+  }
+  .binder .hole{
+    width:13px; height:13px; border-radius:50%;
+    background:var(--paper);
+    box-shadow: inset 0 2px 3px rgba(0,0,0,.25), 0 1px 0 rgba(255,255,255,.6);
+    border:1px solid #00000014;
+  }
+
+  .page{ margin-left:52px; position:relative; }
+  .page::before{
+    content:'';
+    position:fixed; top:0; bottom:0; left:88px;
+    width:1.5px; background:var(--rule); opacity:.55;
+    z-index:5;
+  }
+  @media (max-width:700px){
+    .binder{ display:none; }
+    .page{ margin-left:0; }
+    .page::before{ left:26px; }
+  }
+
+  .tabs{
+    position:sticky; top:0; z-index:40;
+    display:flex; gap:2px; overflow-x:auto;
+    background:var(--paper);
+    padding:14px 40px 0;
+    border-bottom:1px solid var(--line);
+    -webkit-overflow-scrolling:touch;
+  }
+  .tabs a{
+    font-family:var(--display); font-weight:600; font-size:13.5px;
+    color:var(--muted); text-decoration:none;
+    padding:10px 16px 12px;
+    white-space:nowrap;
+    border:1px solid transparent; border-bottom:none;
+    border-radius:8px 8px 0 0;
+    position:relative; top:1px;
+  }
+  .tabs a.active{ color:var(--ink); background:var(--card); border-color:var(--line); }
+
+  section{ padding:70px 40px; max-width:900px; }
+  .eyebrow{ font-family:var(--hand); font-size:22px; color:var(--sage); margin-bottom:2px; }
+  h2{
+    font-family:var(--display); font-size:30px; font-weight:700;
+    margin-bottom:26px; letter-spacing:-.01em;
+  }
+  .underline{
+    background:linear-gradient(var(--highlighter), var(--highlighter));
+    background-repeat:no-repeat; background-size:100% 40%; background-position:0 78%;
+    padding:0 2px;
+  }
+
+  #hero{
+    padding-top:64px; padding-bottom:50px;
+    display:grid; grid-template-columns:1fr 260px; gap:44px; align-items:center;
+  }
+  .hero-hi{ font-family:var(--hand); font-size:30px; color:var(--sage); }
+  .hero-name{
+    font-family:var(--display); font-weight:700;
+    font-size:clamp(36px, 5vw, 58px); line-height:1.05; margin:6px 0 14px;
+  }
+  .hero-role{ font-size:18px; color:var(--muted); margin-bottom:22px; max-width:46ch; }
+  .hero-tags{ display:flex; flex-wrap:wrap; gap:10px; }
+  .sticky-tag{
+    font-family:var(--sans); font-size:12.5px; font-weight:600;
+    padding:7px 13px; border-radius:5px;
+    background:var(--card); border:1px solid var(--line);
+    box-shadow:2px 3px 0 rgba(0,0,0,.05);
+    transform:rotate(var(--r,-1deg));
+  }
+  .sticky-tag:nth-child(2n){ --r:1.2deg; }
+  .sticky-tag:nth-child(3n){ --r:-2deg; }
+
+  .polaroid{
+    background:var(--card); border:1px solid var(--line);
+    padding:12px 12px 20px;
+    box-shadow:0 18px 34px -14px rgba(0,0,0,.25);
+    transform:rotate(-3deg);
+    position:relative;
+  }
+  .polaroid img{ width:100%; height:auto; border:1px solid var(--line); }
+  .polaroid .cap{ font-family:var(--hand); font-size:19px; color:var(--muted); text-align:center; padding-top:10px; }
+  .tape{
+    position:absolute; top:-14px; left:50%; transform:translateX(-50%) rotate(-4deg);
+    width:90px; height:26px; background:rgba(255,217,102,.55);
+    border:1px solid rgba(0,0,0,.05);
+  }
+
+  #about p{ font-size:16px; max-width:64ch; margin-bottom:14px; }
+  .about-list{ list-style:none; max-width:64ch; margin-bottom:8px; }
+  .about-list li{ position:relative; padding-left:22px; margin-bottom:12px; font-size:15.5px; }
+  .about-list li::before{ content:'✎'; position:absolute; left:0; color:var(--sage); }
+  .contact-strip{ display:flex; flex-wrap:wrap; gap:16px; margin-top:24px; }
+  .contact-strip a{
+    font-family:var(--sans); font-size:13.5px; font-weight:600;
+    color:var(--ink); text-decoration:none;
+    border-bottom:2px solid var(--highlighter); padding-bottom:2px;
+  }
+  .contact-strip a:hover{ color:var(--blue); }
+
+  .skill-cards{ display:grid; grid-template-columns:repeat(2, 1fr); gap:18px; }
+  .skill-card{
+    background:var(--card); border:1px solid var(--line);
+    border-radius:10px; padding:20px 22px;
+    box-shadow:3px 4px 0 rgba(0,0,0,.04);
+  }
+  .skill-card h3{ font-family:var(--hand); font-size:22px; color:var(--sage); margin-bottom:12px; font-weight:600; }
+  .tagcloud{ display:flex; flex-wrap:wrap; gap:8px; }
+  .tagcloud span{
+    font-size:12.5px; font-weight:600; padding:5px 11px; border-radius:16px;
+    background:var(--paper); border:1px solid var(--line);
+  }
+  @media (max-width:640px){ .skill-cards{ grid-template-columns:1fr; } }
+
+  .project-card{
+    background:var(--card); border:1px solid var(--line); border-radius:12px;
+    padding:26px 28px; box-shadow:4px 6px 0 rgba(0,0,0,.04);
+    position:relative; margin-bottom:26px;
+  }
+  .pin{ position:absolute; top:-9px; left:28px; width:16px; height:16px; border-radius:50%; background:var(--rule); box-shadow:0 3px 4px rgba(0,0,0,.25); }
+  .project-top{ display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:10px; margin-bottom:12px; }
+  .project-top h3{ font-family:var(--display); font-size:19px; font-weight:700; }
+  .project-date{ font-family:var(--hand); font-size:16px; color:var(--muted); }
+  .project-card ul{ list-style:none; margin-bottom:16px; }
+  .project-card li{ position:relative; padding-left:20px; margin-bottom:9px; font-size:15px; }
+  .project-card li::before{ content:'✎'; position:absolute; left:0; color:var(--sage); }
+  .stack-label{ font-family:var(--hand); font-size:17px; color:var(--sage); margin-bottom:8px; }
+  .project-links a{ font-weight:600; font-size:13.5px; text-decoration:none; }
+
+  .edu-list{ display:flex; flex-direction:column; gap:20px; }
+  .edu-item{ display:grid; grid-template-columns:150px 1fr; gap:20px; padding-bottom:20px; border-bottom:1px dashed var(--line); }
+  .edu-item:last-child{ border-bottom:none; }
+  .edu-item .edu-date{ font-family:var(--hand); font-size:19px; color:var(--sage); }
+  .edu-item h3{ font-family:var(--display); font-size:17px; margin-bottom:3px; }
+  .edu-item .edu-meta{ font-size:13.5px; color:var(--muted); margin-bottom:6px; }
+  .edu-item .edu-detail{ font-size:15px; }
+  .edu-item .edu-detail b{ color:var(--rule); }
+  @media (max-width:600px){ .edu-item{ grid-template-columns:1fr; gap:4px; } }
+
+  .cert-row{ display:grid; grid-template-columns:repeat(3, 1fr); gap:16px; margin-bottom:44px; }
+  .cert-badge{
+    display:block; text-decoration:none; color:var(--ink);
+    background:var(--card); border:1px solid var(--line); border-radius:10px;
+    padding:12px; text-align:center; box-shadow:2px 3px 0 rgba(0,0,0,.04);
+    transition:transform .15s, box-shadow .15s;
+  }
+  .cert-badge:hover{ transform:translateY(-3px); box-shadow:4px 8px 0 rgba(0,0,0,.06); }
+  .cert-thumb{
+    width:100%; height:120px; object-fit:cover; object-position:top;
+    border-radius:6px; border:1px solid var(--line); margin-bottom:12px;
+  }
+  .cert-badge .cert-title{ font-weight:700; font-size:14px; margin-bottom:4px; }
+  .cert-badge .cert-meta{ font-size:12px; color:var(--muted); margin-bottom:8px; }
+  .cert-badge .cert-view{ font-size:12px; font-weight:600; color:var(--blue); }
+  @media (max-width:700px){ .cert-row{ grid-template-columns:1fr; } }
+
+  .achieve-list{ list-style:none; display:flex; flex-direction:column; gap:14px; }
+  .achieve-list li{
+    display:flex; gap:14px; align-items:flex-start;
+    background:var(--card); border:1px solid var(--line); border-radius:10px;
+    padding:16px 18px; font-size:15px;
+  }
+  .achieve-list .star{ color:var(--rule); font-size:18px; flex-shrink:0; }
+
+  #contact{ padding-bottom:100px; }
+  .postcard{
+    background:var(--card); border:1px solid var(--line); border-radius:12px;
+    padding:30px 32px; max-width:560px; box-shadow:6px 8px 0 rgba(0,0,0,.05);
+  }
+  .postcard .hand-line{ font-family:var(--hand); font-size:24px; color:var(--sage); margin-bottom:16px; }
+  .postcard-links{ display:flex; flex-direction:column; gap:12px; }
+  .postcard-links a{ text-decoration:none; color:var(--ink); font-weight:600; font-size:14.5px; display:flex; gap:10px; align-items:center; }
+  .postcard-links a span.k{ color:var(--muted); font-weight:400; width:70px; flex-shrink:0; font-size:13px; }
+  .postcard-links a:hover{ color:var(--blue); }
+
+  footer{ padding:30px 40px 50px; font-size:12.5px; color:var(--muted); max-width:900px; }
+
+  @media (prefers-reduced-motion: reduce){ html{ scroll-behavior:auto; } }
+
+  @media (max-width:760px){
+    section{ padding:48px 24px; }
+    #hero{ grid-template-columns:1fr; padding-top:36px; }
+    .polaroid{ max-width:220px; justify-self:start; }
+    .tabs{ padding-left:20px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="binder">
+  <span class="hole"></span><span class="hole"></span><span class="hole"></span>
+  <span class="hole"></span><span class="hole"></span><span class="hole"></span>
+  <span class="hole"></span><span class="hole"></span><span class="hole"></span>
+</div>
+
+<div class="page">
+
+  <nav class="tabs" id="tabs">
+    <a href="#hero" class="active">Home</a>
+    <a href="#about">About</a>
+    <a href="#skills">Skills</a>
+    <a href="#projects">Projects</a>
+    <a href="#certificates">Certifications</a>
+    <a href="#education">Education</a>
+    <a href="#contact">Contact</a>
+  </nav>
+
+  <section id="hero">
+    <div>
+      <div class="hero-hi">Hi, I'm</div>
+      <h1 class="hero-name">Arvind Kumar</h1>
+      <p class="hero-role">A <span class="underline">Computer Science &amp; Engineering</span> student at Lovely Professional University who likes turning ideas into things that actually work — code, circuits, and everything in between.</p>
+      <div class="hero-tags">
+        <span class="sticky-tag">🎓 B.Tech CSE, LPU</span>
+        <span class="sticky-tag">📍 Phagwara, Punjab</span>
+        <span class="sticky-tag">CGPA 9.51</span>
+        <span class="sticky-tag">Open to internships</span>
+      </div>
+    </div>
+    <div class="polaroid">
+      <div class="tape"></div>
+      <img src="profile.jpg" alt="Portrait of Arvind Kumar">
+      <div class="cap">that's me!</div>
+    </div>
+  </section>
+
+  <section id="about">
+    <div class="eyebrow">a little about me</div>
+    <h2>About</h2>
+    <ul class="about-list">
+      <li>B.Tech CSE student at Lovely Professional University, Phagwara.</li>
+      <li>Skilled in Python, JavaScript, and C, with experience in HTML, CSS, MySQL, Git, and GitHub.</li>
+      <li>Built a Smart Clock & IoT Water Monitoring System using ESP32, sensors, and Blynk Cloud.</li>
+      <li>Interested in Artificial Intelligence & Machine Learning — completed foundational certifications and aiming to build projects in this space going forward.</li>
+      <li>Looking for internship opportunities to apply and grow my skills further.</li>
+    </ul>
+    <div class="contact-strip">
+      <a href="mailto:carvinds2025e@gmail.com">carvinds2025e@gmail.com</a>
+      <a href="https://github.com/arvind-jais11" target="_blank" rel="noopener">github.com/arvind-jais11</a>
+      <a href="https://www.linkedin.com/in/arvind-kumar-812887262/" target="_blank" rel="noopener">linkedin.com/in/arvind-kumar</a>
+    </div>
+  </section>
+
+  <section id="skills">
+    <div class="eyebrow">what I work with</div>
+    <h2>Skills</h2>
+    <div class="skill-cards">
+      <div class="skill-card">
+        <h3>Languages</h3>
+        <div class="tagcloud"><span>Python</span><span>JavaScript</span><span>C</span></div>
+      </div>
+      <div class="skill-card">
+        <h3>Web Technologies</h3>
+        <div class="tagcloud"><span>HTML</span><span>CSS</span></div>
+      </div>
+      <div class="skill-card">
+        <h3>Tools &amp; Databases</h3>
+        <div class="tagcloud"><span>MySQL</span><span>Git</span><span>GitHub</span></div>
+      </div>
+      <div class="skill-card">
+        <h3>Soft Skills</h3>
+        <div class="tagcloud"><span>Problem solving</span><span>Team collaboration</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projects">
+    <div class="eyebrow">things I've built</div>
+    <h2>Projects</h2>
+    <div class="project-card">
+      <span class="pin"></span>
+      <div class="project-top">
+        <h3>Smart Clock &amp; IoT Water Monitoring System</h3>
+        <span class="project-date">Mar 2026 – May 2026</span>
+      </div>
+      <ul>
+        <li>Developed an ESP32-based smart clock integrated with an LCD display to show real-time time, date, temperature and humidity.</li>
+        <li>Implemented water-tank level monitoring using an ultrasonic sensor, enabling real-time tracking of available water.</li>
+        <li>Integrated TDS and turbidity sensors to monitor and display water-quality parameters for continuous assessment.</li>
+        <li>Connected the system to Blynk Cloud to transmit sensor readings and enable remote monitoring from anywhere.</li>
+      </ul>
+      <div class="stack-label">tech stack</div>
+      <div class="tagcloud" style="margin-bottom:16px;">
+        <span>ESP32</span><span>LCD</span><span>Ultrasonic Sensor</span><span>TDS Sensor</span><span>Turbidity Sensor</span><span>Blynk Cloud</span>
+      </div>
+      <div class="project-links">
+        <a href="https://github.com/arvind-jais11/ECE_Project" target="_blank" rel="noopener">→ view repository</a>
+      </div>
+    </div>
+    <p style="color:var(--muted); font-size:14.5px;">More projects coming soon — check my GitHub for full history.</p>
+  </section>
+
+  <section id="certificates">
+    <div class="eyebrow">courses &amp; wins</div>
+    <h2>Certifications</h2>
+    <div class="cert-row">
+      <a class="cert-badge" href="https://drive.google.com/file/d/1EZRk3mwCtKzDyaHUzFdrqLma_EuYHzxO/view?usp=drivesdk" target="_blank" rel="noopener">
+        <img class="cert-thumb" src="certs/ai.jpg" alt="Introduction to Artificial Intelligence certificate">
+        <div class="cert-title">Introduction to Artificial Intelligence</div>
+        <div class="cert-meta">Infosys Springboard · Feb 2026</div>
+        <div class="cert-view">view certificate →</div>
+      </a>
+      <a class="cert-badge" href="https://drive.google.com/file/d/1DOi2lMHRZGMzFPing82zLAHppEuGXRzZ/view?usp=drivesdk" target="_blank" rel="noopener">
+        <img class="cert-thumb" src="certs/ml.jpg" alt="Fundamentals of Machine Learning certificate">
+        <div class="cert-title">Fundamentals of Machine Learning</div>
+        <div class="cert-meta">Saylor Academy · Jan 2026</div>
+        <div class="cert-view">view certificate →</div>
+      </a>
+      <a class="cert-badge" href="https://drive.google.com/file/d/193eyF2vdP3cz0fQEZKc40bBGoQ7YIthO/view?usp=drivesdk" target="_blank" rel="noopener">
+        <img class="cert-thumb" src="certs/tm.jpg" alt="Time Management Tips certificate">
+        <div class="cert-title">Time Management Tips</div>
+        <div class="cert-meta">LinkedIn Learning · Oct 2025</div>
+        <div class="cert-view">view certificate →</div>
+      </a>
+    </div>
+
+    <h2>Achievements</h2>
+    <ul class="achieve-list">
+      <li><span class="star">★</span> Solved 100+ programming problems across coding platforms including CodeTantra and NeoColab through regular practice.</li>
+      <li><span class="star">★</span> Mentored Class 8–10 students in beginner-level Python as part of a Community Development Project, running live coding sessions and fostering technology and career awareness.</li>
+    </ul>
+  </section>
+
+  <section id="education">
+    <div class="eyebrow">my academic path</div>
+    <h2>Education</h2>
+    <div class="edu-list">
+      <div class="edu-item">
+        <div class="edu-date">2025 – Present</div>
+        <div>
+          <h3>Lovely Professional University</h3>
+          <div class="edu-meta">Phagwara, Punjab</div>
+          <div class="edu-detail">Bachelor of Technology — Computer Science &amp; Engineering &nbsp;·&nbsp; CGPA: <b>9.51</b></div>
+        </div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-date">2021 – 2023</div>
+        <div>
+          <h3>Lyceum International School</h3>
+          <div class="edu-meta">Muzaffarpur, Bihar</div>
+          <div class="edu-detail">Higher Secondary Education &nbsp;·&nbsp; Percentage: <b>83%</b></div>
+        </div>
+      </div>
+      <div class="edu-item">
+        <div class="edu-date">2020 – 2021</div>
+        <div>
+          <h3>DAV Public School</h3>
+          <div class="edu-meta">Muzaffarpur, Bihar</div>
+          <div class="edu-detail">Secondary Education &nbsp;·&nbsp; Percentage: <b>75%</b></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact">
+    <div class="eyebrow">say hello</div>
+    <h2>Get in touch</h2>
+    <div class="postcard">
+      <div class="hand-line">Let's build something together!</div>
+      <div class="postcard-links">
+        <a href="mailto:carvinds2025e@gmail.com"><span class="k">Email</span> carvinds2025e@gmail.com</a>
+        <a href="https://github.com/arvind-jais11" target="_blank" rel="noopener"><span class="k">GitHub</span> github.com/arvind-jais11</a>
+        <a href="https://www.linkedin.com/in/arvind-kumar-812887262/" target="_blank" rel="noopener"><span class="k">LinkedIn</span> linkedin.com/in/arvind-kumar</a>
+        <a href="tel:+919608342659"><span class="k">Mobile</span> +91-9608342659</a>
+      </div>
+    </div>
+  </section>
+
+  <footer>© 2026 Arvind Kumar. Built with HTML &amp; CSS.</footer>
+
+</div>
+
+<script>
+  const sections = document.querySelectorAll('section[id]');
+  const tabs = document.querySelectorAll('.tabs a');
+  function setActive(id){
+    tabs.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + id));
+  }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => { if(entry.isIntersecting){ setActive(entry.target.id); } });
+  }, { rootMargin: '-35% 0px -55% 0px', threshold: 0 });
+  sections.forEach(sec => observer.observe(sec));
+</script>
+
+</body>
+</html>
